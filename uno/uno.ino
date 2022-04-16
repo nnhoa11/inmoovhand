@@ -1,17 +1,17 @@
 #include <Servo.h>
-Servo thumb, index, middle, ring, pinky;
+Servo thumb, index, middle, ring, pinky, hand[6];
 const int StringLength = 6;
 int stas[10], counter = 0;
-String received;
+String received, prev;
 bool counterStart = false;
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
-  thumb.attach(7);
-  index.attach(8);
-  middle.attach(9);
-  ring.attach(10);
-  pinky.attach(11);
+  hand[0].attach(7);
+  hand[1].attach(8);
+  hand[2].attach(9);
+  hand[3].attach(10);
+  hand[4].attach(11);
 }
 void Input(){
    while(Serial.available()){
@@ -27,15 +27,16 @@ void Input(){
       }
       counter = 0;
       counterStart = false;
-      received = "";
+      //received = "";
     }
   }
 }
 void loop() {
   Input();
-  if (stas[0]) thumb.write(180); else thumb.write(0);
-  if (stas[1]) index.write(180); else index.write(0);
-  if (stas[2]) middle.write(180); else middle.write(0);
-  if (stas[3]) ring.write(180); else ring.write(0);
-  if (stas[4]) pinky.write(180); else pinky.write(0);
+  if (prev != received)
+  for (int i = 0; i < 5; i++){
+    if (stas[i]) hand[i].write(180); else hand[i].write(0);
+  }
+  prev = received;
+  received = "";
 }
