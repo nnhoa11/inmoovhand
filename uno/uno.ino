@@ -30,9 +30,9 @@ void Input(){
 }
 void loop() {
   Input();
-  thumb.write(180 * stas[0]);
-  index.write(180 * stas[1]);
-  middle.write(180 * stas[2]);
-  ring.write(180 * stas[3]);
-  pinky.write(180 * stas[4]);
+  if (stas[0]) thumb.write(180); else thumb.write(0);
+  if (stas[1]) index.write(180); else index.write(0);
+  if (stas[2]) middle.write(180); else middle.write(0);
+  if (stas[3]) ring.write(180); else ring.write(0);
+  if (stas[4]) pinky.write(180); else pinky.write(0);
 }
