@@ -2,7 +2,7 @@
 Servo thumb, index, middle, ring, pinky, hand[6];
 const int StringLength = 6;
 int stas[10], counter = 0;
-String received, prev;
+String received, prev= "$00000";
 bool counterStart = false;
 void setup() {
   // put your setup code here, to run once:
@@ -33,10 +33,10 @@ void Input(){
 }
 void loop() {
   Input();
-  if (prev != received)
+  if (prev != received){ prev = received;
   for (int i = 0; i < 5; i++){
     if (stas[i]) hand[i].write(180); else hand[i].write(0);
   }
-  prev = received;
+    }
   received = "";
 }
