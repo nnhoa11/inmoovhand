@@ -25,6 +25,9 @@ void Input(){
       for (int i = 0; i < 5; i++){
         stas[i] = received.substring(i, i + 1).toInt();
       }
+      counter = 0;
+      counterStart = false;
+      received = "";
     }
   }
 }
