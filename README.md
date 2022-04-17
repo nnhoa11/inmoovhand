@@ -4,3 +4,5 @@ required module:
  + mediapipe
  + cvzone
  + pyserial
+
+remove folder: sudo rm -rf myfolder
