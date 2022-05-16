@@ -1,4 +1,5 @@
 #include <Servo.h>
+
 Servo thumb, index, middle, ring, pinky, hand[6];
 const int StringLength = 6;
 int stas[10], counter = 0;
@@ -7,36 +8,21 @@ bool counterStart = false;
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
-  hand[0].attach(7);
-  hand[1].attach(8);
-  hand[2].attach(9);
-  hand[3].attach(10);
-  hand[4].attach(11);
+   thumb.attach(7);
 }
-void Input(){
-   while(Serial.available()){
-    char c = Serial.read();
-    if (c == '$') counterStart = true;
-    if (counterStart){
-      received += c;
-      counter++;
-    }
-    if (counter >= StringLength){
-      for (int i = 0; i < 5; i++){
-        stas[i] = received.substring(i, i + 1).toInt();
-      }
-      counter = 0;
-      counterStart = false;
-      //received = "";
-    }
-  }
-}
+
 void loop() {
-  Input();
-  if (prev != received){ prev = received;
-  for (int i = 0; i < 5; i++){
-    if (stas[i]) hand[i].write(180); else hand[i].write(0);
-  }
+  if(Serial.available() > 0){
+    char c = Serial.read();
+    if (c == '$'){
+      received = "";
+      counter = 0;
     }
-  received = "";
+    if (c == '1') { 
+      thumb.writeMicroseconds(1500);
+    }
+    if (c == '0' ){
+    }
+    counter++;
+  }
 }
